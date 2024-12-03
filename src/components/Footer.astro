@@ -1,0 +1,11 @@
+---
+const { global } = Astro.props;
+const { address } = global;
+---
+
+<footer class="bg-secondary text-white">
+	{address.legalName}<br />
+	{address.street}<br />
+	{address.zip}
+	{address.city}
+</footer>

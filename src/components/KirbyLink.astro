@@ -1,0 +1,26 @@
+---
+const { link } = Astro.props;
+
+if (!link) {
+	return null;
+}
+
+const isPreview = Astro.url.pathname === '/preview';
+
+const { href, type } = link;
+if (isPreview && type === 'page') {
+	const parts = href.split('/').slice(1);
+	const language = parts.shift();
+	const slug = parts.join('/');
+
+	link.href = `/preview?slug=${slug}&language=${language}`;
+}
+---
+
+<a
+	class={Astro.props.class}
+	href={`${link.href}${link.hash ? `#${link.hash}` : ''}`}
+	aria-label={link.title}
+	target={link.popup ? '_blank' : null}
+	>{Astro.slots.has('default') ? <slot /> : link.title}</a
+>

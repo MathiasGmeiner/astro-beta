@@ -1,0 +1,19 @@
+---
+import KirbyPage from '@components/KirbyPage.astro';
+import Layout from '@layouts/Layout.astro';
+import { getGlobal, getPage } from '@lib/kirbycms';
+
+const params = Astro.params as { slug?: string };
+const slug = params.slug ?? 'home';
+const page = await getPage(slug);
+const global = await getGlobal();
+
+if (!page) {
+	Astro.response.status = 404;
+	Astro.response.statusText = 'Not found';
+}
+---
+
+<Layout page={page} global={global}>
+	<KirbyPage page={page} global={global} />
+</Layout>

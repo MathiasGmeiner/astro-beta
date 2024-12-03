@@ -1,0 +1,11 @@
+---
+export const prerender = false;
+const { page, global } = Astro.props;
+const url = Astro.url;
+---
+
+<script is:inline define:vars={{ page, global, url }}>
+    console.log('page', page);
+    console.log('global', global);
+    console.log('url', url);
+</script>

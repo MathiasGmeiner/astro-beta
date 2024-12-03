@@ -1,0 +1,14 @@
+---
+import KirbyImage from '@components/KirbyImage.astro';
+import type { IImage } from '../types';
+const { items } = Astro.props.block.content;
+---
+
+"{Astro.props.block.type}"
+{
+	items.map((item: { image: IImage }) => (
+		<div>
+			<KirbyImage image={item.image} />
+		</div>
+	))
+}

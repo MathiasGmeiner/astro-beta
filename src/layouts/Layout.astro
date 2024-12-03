@@ -1,0 +1,58 @@
+---
+import AstroDebugger from '@/components/AstroDebugger.astro';
+import Footer from '@components/Footer.astro';
+import '@styles/global.css';
+
+const page = Astro.props.page;
+const global = Astro.props.global;
+
+const meta = page.meta;
+
+const metaTitle = meta.find(
+	(item: { tag: string }) => item.tag === 'title'
+)?.content;
+const metaTags = meta.filter((item: { tag: string }) => item.tag !== 'title');
+---
+
+<!doctype html>
+<html class="antialiased" lang={global.language}>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+
+		{
+			metaTags?.map(
+				(item: {
+					tag: string;
+					attributes: {
+						name?: string;
+						property?: string;
+						content: string;
+					};
+				}) => {
+					if (item.attributes.name) {
+						return (
+							<meta
+								name={item.attributes.name}
+								content={item.attributes.content}
+							/>
+						);
+					}
+					return (
+						<meta
+							property={item.attributes.property}
+							content={item.attributes.content}
+						/>
+					);
+				}
+			)
+		}
+		<title>{metaTitle}</title>
+
+		{import.meta.env.DEV && <AstroDebugger page={page} global={global} />}
+	</head>
+	<body class="text-green bg-white antialiased">
+		<slot />
+		<Footer global={global} />
+	</body>
+</html>

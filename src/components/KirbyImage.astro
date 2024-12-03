@@ -1,0 +1,22 @@
+---
+import { Image } from 'astro:assets';
+const { image, loading, widths, sizes } = Astro.props;
+
+const imageWidths = widths ?? [240, 360, 480, 720, 960, 1440, 1820, 2560, 3840];
+const imageSizes = sizes ?? '100vw';
+---
+
+{
+	image && (image.src || image.url) && (
+		<Image
+			src={image.src || image.url}
+			alt={image.alt ?? ''}
+			width={image.width}
+			height={image.height}
+			class={Astro.props.class}
+			widths={imageWidths}
+			sizes={imageSizes}
+			loading={loading ?? 'lazy'}
+		/>
+	)
+}

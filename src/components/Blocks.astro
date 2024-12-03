@@ -1,0 +1,18 @@
+---
+import BlockFallback from '@blocks/BlockFallback.astro';
+import BlockSlider from '@blocks/BlockSlider.astro';
+
+const page = Astro.props.page;
+const global = Astro.props.global;
+
+const blocks = {
+	slider: BlockSlider,
+};
+---
+
+{
+	page.blocks?.map((block: { type: keyof typeof blocks }) => {
+		const Block = blocks[block.type] || BlockFallback;
+		return <Block block={block} page={page} global={global} />;
+	})
+}

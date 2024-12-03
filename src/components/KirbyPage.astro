@@ -1,0 +1,17 @@
+---
+import Header from './Header.astro';
+import TemplateFallback from '@templates/TemplateFallback.astro';
+import TemplateDefault from '@templates/TemplateDefault.astro';
+
+const { page, global } = Astro.props;
+
+const templates = {
+	home: TemplateDefault,
+	default: TemplateDefault,
+};
+
+const Template = templates[page.intendedTemplate] || TemplateFallback;
+---
+
+<Header page={page} global={global} />
+<Template page={page} global={global} />
